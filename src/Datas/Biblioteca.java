@@ -13,7 +13,7 @@ public class Biblioteca implements Serializable {
     }
 
     // Funciones
-    public void agregarLibro(Libro nuevoLibro, int d) {
+    public void modificarLibro(Libro nuevoLibro, int d) {
         if (d == 0) {
             for (Libro libro : coleccion) {
                 if (nuevoLibro.getTitulo().equalsIgnoreCase(libro.getTitulo()) || nuevoLibro.getIsbn().equalsIgnoreCase(libro.getIsbn())) {
@@ -39,67 +39,70 @@ public class Biblioteca implements Serializable {
         }
     }
 
-    public void mostrarLibros() {
+    public void mostrarLista(int d) {
         int contador = 1;
 
-        for (Libro libro : coleccion) {
-            System.out.println(contador + ". " + libro);
-            contador++;
-        }
-
-        if (contador == 1) {
-            System.out.println("No hay libros en este momento");
-        }
-    }
-
-    public void mostrarPrestados() {
-        int contador = 1;
-
-        for (Libro libro : coleccion) {
-            if (libro.isPrestado()) {
-                System.out.println(contador + ". " + libro.getTitulo() + " // Autor: " + libro.getAutor());
+        if (d == 0) {
+            for (Libro libro : coleccion) {
+                System.out.println(contador + ". " + libro);
                 contador++;
             }
-        }
-
-        if (contador == 1) {
-            System.out.println("No hay libros prestados en este momento");
-        }
-    }
-
-    public void prestarLibro(String t) {
-        for (Libro libro : coleccion) {
-            if (libro.getTitulo().equalsIgnoreCase(t)) {
-                if (!libro.isPrestado()) {
-                    libro.setPrestado(true);
-
-                    System.out.println("El libro ha sido prestado con exito.");
-                    return;
-                } else {
-                    System.out.println("Este libro ya está prestado.");
-                    return;
-                }
+            if (contador == 1) {
+                System.out.println("No hay libros en este momento");
             }
-        }
-        System.out.println("Este libro no se encuentra en la lista.");
-    }
 
-    public void devolverLibro(String t) {
-        for (Libro libro : coleccion) {
-            if (libro.getTitulo().equalsIgnoreCase(t)) {
+        } else if (d == 1) {
+            for (Libro libro : coleccion) {
                 if (libro.isPrestado()) {
-                    libro.setPrestado(false);
+                    System.out.println(contador + ". " + libro.getTitulo() + " // Autor: " + libro.getAutor());
+                    contador++;
+                }
+            }
+            if (contador == 1) {
+                System.out.println("No hay libros prestados en este momento");
+            }
+        } else {
+            System.out.println("Opción no válida. Vuelva a intentarlo.");
+        }
 
-                    System.out.println("El libro ha sido devuelto con exito.");
-                    return;
-                } else {
-                    System.out.println("Este libro no está prestado.");
+
+    }
+
+    public void prestarYdevolver(String t, int d) {
+        if (d == 0) {
+            for (Libro libro : coleccion) {
+                if (libro.getTitulo().equalsIgnoreCase(t)) {
+                    if (!libro.isPrestado()) {
+                        libro.setPrestado(true);
+
+                        System.out.println("El libro ha sido prestado con exito.");
+                    } else {
+                        System.out.println("Este libro ya está prestado.");
+                    }
                     return;
                 }
             }
-        }
-        System.out.println("Este libro no se encuentra en la lista.");
+            System.out.println("Este libro no se encuentra en la lista.");
 
+        } else if (d == 1) {
+            for (Libro libro : coleccion) {
+                if (libro.getTitulo().equalsIgnoreCase(t)) {
+                    if (libro.isPrestado()) {
+                        libro.setPrestado(false);
+
+                        System.out.println("El libro ha sido devuelto con exito.");
+                    } else {
+                        System.out.println("Este libro no está prestado.");
+                    }
+                    return;
+                }
+            }
+            System.out.println("Este libro no se encuentra en la lista.");
+        }
+    }
+
+    public ArrayList<Libro> recorrerColeccion() {
+        return getColeccion();
     }
 
     // Getters y Setters

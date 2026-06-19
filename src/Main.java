@@ -10,14 +10,13 @@ public class Main {
 
         Scanner sc = new Scanner(System.in);
         int opcion;
+        int d;
 
         do {
-            System.out.println("\n****** GESTOR BIBLIOTECA ******");
-            System.out.println("1. Añadir o eliminar libro");
-            System.out.println("2. Mostrar catálogo de libros");
-            System.out.println("3. Mostrar libros prestados");
-            System.out.println("4. Prestar libro");
-            System.out.println("5. Devolver libro");
+            System.out.println("\n****** GESTIÓN DE BIBLIOTECA ******");
+            System.out.println("1. Añadir o eliminar libros");
+            System.out.println("2. Mostrar listas de libros");
+            System.out.println("3. Prestar o devolver libros");
             System.out.println("0. Guardar y Salir");
             opcion = sc.nextInt();
             sc.nextLine();
@@ -26,8 +25,8 @@ public class Main {
 
                 case 1:
                     Libro nuevoLibro = new Libro();
-                    System.out.println("¿Qué quieres hacer? (0. Agregar // 1. Eliminar");
-                    int d = sc.nextInt();
+                    System.out.println("¿Qué acción quieres realizar? (0. Agregar libro // 1. Eliminar libro");
+                    d = sc.nextInt();
                     sc.nextLine();
 
                     if (d == 0) {
@@ -40,36 +39,49 @@ public class Main {
                         nuevoLibro = new Libro(t, a, i, false);
 
                     } else if (d == 1) {
-                        System.out.print("Título del libro -> ");
-                        String t = sc.nextLine();
-                        nuevoLibro = new Libro(t, null, null, false);
+                        if (!biblioteca1.recorrerColeccion().isEmpty()) {
+                            System.out.print("Título del libro -> ");
+                            String t = sc.nextLine();
+                            nuevoLibro = new Libro(t, null, null, false);
+                        } else {
+                            System.out.println("No hay libros en la biblioteca. Intenta añadir alguno.");
+                            break;
+                        }
                     }
 
-                    biblioteca1.agregarLibro(nuevoLibro, d);
+                    biblioteca1.modificarLibro(nuevoLibro, d);
 
                     guardarDatosBiblioteca(biblioteca1);
                     break;
                 case 2:
-                    System.out.println("\n*** Lista de libros ***");
+                    System.out.println("¿Qué lista quieres ver? (0. Lista completa // 1. Lista de prestamos)");
+                    d = sc.nextInt();
 
-                    biblioteca1.mostrarLibros();
+                    if (d == 0) {
+                        System.out.println("\n*** Lista de libros ***");
+                        biblioteca1.mostrarLista(d);
+
+                    } else if (d == 1) {
+                        System.out.println("\n*** Libros prestados ***");
+                        biblioteca1.mostrarLista(d);
+
+                    }
+
                     break;
                 case 3:
-                    System.out.println("\n*** Libros prestados ***");
-
-                    biblioteca1.mostrarPrestados();
-                    break;
-                case 4:
+                    System.out.println("\n¿Qué acción quieres realizar? (0. Prestar libro // 1. Devolver libro");
+                    d = sc.nextInt();
                     System.out.print("Título del libro -> ");
-                    String tP = sc.nextLine();
+                    String t = sc.nextLine();
 
-                    biblioteca1.prestarLibro(tP);
-                    break;
-                case 5:
-                    System.out.print("Título del libro -> ");
-                    String tD = sc.nextLine();
+                    if (d == 0) {
+                        biblioteca1.prestarYdevolver(t, d);
 
-                    biblioteca1.devolverLibro(tD);
+                    } else if (d == 1) {
+                        biblioteca1.prestarYdevolver(t, d);
+
+                    }
+
                     break;
                 case 0:
                     guardarDatosBiblioteca(biblioteca1);
@@ -82,9 +94,7 @@ public class Main {
 
         } while (opcion != 0);
     }
-
     // Funciones
-
     public static Biblioteca cargarDatosBiblioteca() {
         // "try-with-resources", inserta la clase dentro del parentesis del try, lo que cierra el flujo automaticamente cuando termina.
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("Biblioteca.dat"))) {
