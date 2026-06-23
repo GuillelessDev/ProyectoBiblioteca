@@ -1,7 +1,6 @@
 import Datas.*;
 
 import java.io.*;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
@@ -25,7 +24,7 @@ public class Main {
 
                 case 1:
                     Libro nuevoLibro = new Libro();
-                    System.out.println("¿Qué acción quieres realizar? (0. Agregar libro // 1. Eliminar libro");
+                    System.out.println("¿Qué acción quieres realizar? (0. Agregar libro // 1. Eliminar libro)");
                     d = sc.nextInt();
                     sc.nextLine();
 
@@ -42,14 +41,14 @@ public class Main {
                         if (!biblioteca1.recorrerColeccion().isEmpty()) {
                             System.out.print("Título del libro -> ");
                             String t = sc.nextLine();
-                            nuevoLibro = new Libro(t, null, null, false);
+                            nuevoLibro = new Libro(t, "", "", false);
                         } else {
                             System.out.println("No hay libros en la biblioteca. Intenta añadir alguno.");
                             break;
                         }
                     }
 
-                    biblioteca1.modificarLibro(nuevoLibro, d);
+                    biblioteca1.agregarYeliminar(nuevoLibro, d);
 
                     guardarDatosBiblioteca(biblioteca1);
                     break;
@@ -76,13 +75,7 @@ public class Main {
                     System.out.print("Título del libro -> ");
                     String t = sc.nextLine();
 
-                    if (d == 0) {
-                        biblioteca1.prestarYdevolver(t, d);
-
-                    } else if (d == 1) {
-                        biblioteca1.prestarYdevolver(t, d);
-
-                    }
+                    biblioteca1.prestarYdevolver(t, d);
 
                     break;
                 case 0:

@@ -2,7 +2,6 @@ package Datas;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Biblioteca implements Serializable {
     private ArrayList<Libro> coleccion;
@@ -13,7 +12,7 @@ public class Biblioteca implements Serializable {
     }
 
     // Funciones
-    public void modificarLibro(Libro nuevoLibro, int d) {
+    public void agregarYeliminar(Libro nuevoLibro, int d) {
         if (d == 0) {
             for (Libro libro : coleccion) {
                 if (nuevoLibro.getTitulo().equalsIgnoreCase(libro.getTitulo()) || nuevoLibro.getIsbn().equalsIgnoreCase(libro.getIsbn())) {
@@ -99,6 +98,18 @@ public class Biblioteca implements Serializable {
             }
             System.out.println("Este libro no se encuentra en la lista.");
         }
+    }
+
+    public Libro buscarLibro(ArrayList<Libro> listaLibros, String t) {
+        Libro seleccionado = new Libro("", "", "", false);
+        for (Libro libro : listaLibros) {
+            if (libro.getTitulo().equalsIgnoreCase(t)) {
+                seleccionado = libro;
+            } else {
+                System.out.println("Este libro no se encuentra en la lista");
+            }
+        }
+        return seleccionado;
     }
 
     public ArrayList<Libro> recorrerColeccion() {
