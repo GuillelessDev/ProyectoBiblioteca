@@ -69,8 +69,10 @@ public class Main {
 
                     break;
                 case 3:
-                    System.out.println("\n¿Qué acción quieres realizar? (0. Prestar libro // 1. Devolver libro");
+                    System.out.println("\n¿Qué acción quieres realizar? (0. Prestar libro // 1. Devolver libro)");
                     d = sc.nextInt();
+                    sc.nextLine();
+
                     System.out.print("Título del libro -> ");
                     String t = sc.nextLine();
 
