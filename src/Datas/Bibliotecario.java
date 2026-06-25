@@ -3,10 +3,14 @@ package Datas;
 public class Bibliotecario extends Persona {
     String codigoBibliotecario;
 
+    // Constructor
     public Bibliotecario(String nombre, String apellido, String dni, String codigoBibliotecario) {
         super(nombre, apellido, dni);
         this.codigoBibliotecario = codigoBibliotecario;
     }
+
+    // Funciones
+
 
     @Override
     public void presentarse() {

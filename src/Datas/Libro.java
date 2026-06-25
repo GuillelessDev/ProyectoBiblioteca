@@ -70,6 +70,6 @@ public class Libro implements Serializable {
             pT = "Disponible";
         }
 
-        return this.titulo + " // Autor: " + this.autor + " // Estado: " + pT;
+        return this.titulo + " / Autor: " + this.autor + " / Estado: " + pT;
     }
 }

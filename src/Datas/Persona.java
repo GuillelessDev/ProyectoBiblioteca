@@ -11,6 +11,7 @@ public class Persona {
     }
 
     // Funciones
+
     public void presentarse() {
         System.out.println("Hola, encantado de conocerte.");
     }

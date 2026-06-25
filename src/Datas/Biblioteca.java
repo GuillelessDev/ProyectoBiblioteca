@@ -5,14 +5,17 @@ import java.util.ArrayList;
 
 public class Biblioteca implements Serializable {
     private ArrayList<Libro> coleccion;
+    private ArrayList<Usuario> listaUsuarios;
 
     // Constructor
     public Biblioteca() {
         coleccion = new ArrayList<>();
+        listaUsuarios = new ArrayList<>();
     }
 
     // Funciones
-    public void agregarYeliminar(Libro nuevoLibro, int d) {
+
+    public void agregarYeliminarLibros(Libro nuevoLibro, int d) {
         if (d == 0) {
             for (Libro libro : coleccion) {
                 if (nuevoLibro.getTitulo().equalsIgnoreCase(libro.getTitulo()) || nuevoLibro.getIsbn().equalsIgnoreCase(libro.getIsbn())) {
@@ -32,9 +35,6 @@ public class Biblioteca implements Serializable {
                 }
             }
             System.out.println("Este libro no se encuentra en la lista.");
-
-        } else {
-            System.out.println("Opción no válida. Vuelva a intentarlo.");
         }
     }
 
@@ -47,7 +47,7 @@ public class Biblioteca implements Serializable {
                 contador++;
             }
             if (contador == 1) {
-                System.out.println("No hay libros en este momento");
+                System.out.println("No hay libros en este momento.");
             }
 
         } else if (d == 1) {
@@ -58,15 +58,21 @@ public class Biblioteca implements Serializable {
                 }
             }
             if (contador == 1) {
-                System.out.println("No hay libros prestados en este momento");
+                System.out.println("No hay libros prestados en este momento.");
             }
-        } else {
-            System.out.println("Opción no válida. Vuelva a intentarlo.");
+
+        } else if (d == 2) {
+            for (Usuario usuario : listaUsuarios) {
+                System.out.println(contador + ". " + usuario);
+                contador++;
+            }
+            if (contador == 1) {
+                System.out.println("No existen usuarios en este momento.");
+            }
         }
-
-
     }
 
+    /**
     public void prestarYdevolver(String t, int d) {
         if (d == 0) {
             for (Libro libro : coleccion) {
@@ -98,8 +104,9 @@ public class Biblioteca implements Serializable {
             }
             System.out.println("Este libro no se encuentra en la lista.");
         }
-    }
+    } **/
 
+    /**
     public Libro buscarLibro(ArrayList<Libro> listaLibros, String t) {
         Libro seleccionado = new Libro("", "", "", false);
         for (Libro libro : listaLibros) {
@@ -110,13 +117,50 @@ public class Biblioteca implements Serializable {
             }
         }
         return seleccionado;
+    } **/
+
+    public void crearYeliminarUsuarios(Usuario nuevoUsuario, int d) {
+        if (d == 0) {
+            for (Usuario usuario : listaUsuarios) {
+                if (nuevoUsuario.getNombre().equalsIgnoreCase(usuario.getNombre()) || nuevoUsuario.getCodigoCarnet().equalsIgnoreCase(usuario.getCodigoCarnet())) {
+                    System.out.println("Este usuario ya está registrado.");
+                    return;
+                }
+            }
+            listaUsuarios.add(nuevoUsuario);
+            System.out.println("El usuario ha sido creado con éxito.");
+
+        } else if (d == 1) {
+            for (Usuario usuario : listaUsuarios) {
+                if (nuevoUsuario.getNombre().equalsIgnoreCase(usuario.getNombre()) || nuevoUsuario.getCodigoCarnet().equalsIgnoreCase(usuario.getCodigoCarnet())) {
+                    listaUsuarios.remove(usuario);
+                    System.out.println("El usuario se ha eliminado con éxito.");
+                    return;
+                }
+            }
+            System.out.println("Este usuario no está registrado.");
+        }
+    }
+
+    public Usuario devolverUsuario(String u) {
+        for (Usuario usuario : listaUsuarios) {
+            if (u.equalsIgnoreCase(usuario.getNombre())) {
+                return usuario;
+            }
+        }
+        return null;
     }
 
     public ArrayList<Libro> recorrerColeccion() {
         return getColeccion();
     }
 
+    public ArrayList<Usuario> recorrerListaUsuarios() {
+        return getListaUsuarios();
+    }
+
     // Getters y Setters
+
     private ArrayList<Libro> getColeccion() {
         return coleccion;
     }
@@ -125,8 +169,11 @@ public class Biblioteca implements Serializable {
         this.coleccion = coleccion;
     }
 
-    @Override
-    public String toString() {
-        return "Lista de libros: " + coleccion;
+    private ArrayList<Usuario> getListaUsuarios() {
+        return listaUsuarios;
+    }
+
+    private void setListaUsuarios(ArrayList<Usuario> listaUsuarios) {
+        this.listaUsuarios = listaUsuarios;
     }
 }
