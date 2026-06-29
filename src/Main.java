@@ -21,6 +21,7 @@ public class Main {
             System.out.println("\nUSUARIOS >>>>>>>>>>>>>>>>>");
             System.out.println("4. Crear o eliminar usuarios");
             System.out.println("5. Mostrar lista de usuarios");
+            System.out.println("6. Mostrar libros en posesión");
             System.out.println("\n0. Guardar y Salir");
             opcion = sc.nextInt();
             sc.nextLine();
@@ -88,16 +89,16 @@ public class Main {
                         break;
                     }
 
-                    System.out.print("¿Qué usuario quieres utilizar? ->");
-                    String u = sc.nextLine();
+                    System.out.print("Inserta el Código Carnet del usuario que quieres utilizar -> ");
+                    String cc1 = sc.nextLine();
 
                     System.out.print("Título del libro -> ");
                     String t = sc.nextLine();
 
-                    Usuario usuario = biblioteca1.devolverUsuario(u);
+                    Usuario usuario = biblioteca1.devolverUsuario(cc1);
 
                     if (usuario != null) {
-                        usuario.prestarYdevolver(biblioteca1.recorrerColeccion(), biblioteca1.devolverUsuario(u), t, d);
+                        usuario.prestarYdevolver(biblioteca1.recorrerColeccion(), biblioteca1.devolverUsuario(cc1), t, d);
                     } else {
                         System.out.println("Este usuario no existe. Vuelva a intentarlo.");
                     }
@@ -116,15 +117,15 @@ public class Main {
                         String a = sc.nextLine();
                         System.out.print("DNI -> ");
                         String dni = sc.nextLine();
-                        System.out.print("Código carnet ->");
-                        String cc = sc.nextLine();
-                        nuevoUsuario = new Usuario(n, a, dni, cc);
+                        System.out.print("Código Carnet ->");
+                        String cc2 = sc.nextLine();
+                        nuevoUsuario = new Usuario(n, a, dni, cc2);
 
                     } else if (d == 1) {
                         if (!biblioteca1.recorrerListaUsuarios().isEmpty()) {
-                            System.out.print("Nombre del usuario -> ");
-                            String n = sc.nextLine();
-                            nuevoUsuario = new Usuario(n, "", "", "");
+                            System.out.print("DNI del usuario -> ");
+                            String dni = sc.nextLine();
+                            nuevoUsuario = new Usuario("", "", dni, "");
                         } else {
                             System.out.println("No hay usuarios registrados en este momento. Intenta añadir alguno.");
                             break;
@@ -139,8 +140,25 @@ public class Main {
                     break;
                 case 5:
                     d = 2;
+                    System.out.println("\n*** Lista de usuarios ***");
                     biblioteca1.mostrarLista(d);
 
+                    break;
+                case 6:
+                    System.out.print("Inserta el Código Carnet del usuario -> ");
+                    String cc3 = sc.nextLine();
+
+                    for (Usuario usuProv : biblioteca1.recorrerListaUsuarios())
+                        if (cc3.equalsIgnoreCase(usuProv.getCodigoCarnet())) {
+                            if (!usuProv.getPrestados().isEmpty()) {
+                                System.out.println("\n*** Libros prestados a '" + usuProv.getNombre() + " " + usuProv.getApellido() + "' ***");
+                                usuProv.mostrarLibrosEnPosesion();
+                            } else {
+                                System.out.println("No se han prestado libros a este usuario.");
+                            }
+                        } else {
+                            System.out.println("Este usuario no existe. Vuelva a intentarlo.");
+                        }
                     break;
                 case 0:
                     guardarDatosBiblioteca(biblioteca1);

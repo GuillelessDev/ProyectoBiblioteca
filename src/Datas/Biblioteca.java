@@ -72,57 +72,10 @@ public class Biblioteca implements Serializable {
         }
     }
 
-    /**
-    public void prestarYdevolver(String t, int d) {
-        if (d == 0) {
-            for (Libro libro : coleccion) {
-                if (libro.getTitulo().equalsIgnoreCase(t)) {
-                    if (!libro.isPrestado()) {
-                        libro.setPrestado(true);
-
-                        System.out.println("El libro ha sido prestado con exito.");
-                    } else {
-                        System.out.println("Este libro ya está prestado.");
-                    }
-                    return;
-                }
-            }
-            System.out.println("Este libro no se encuentra en la lista.");
-
-        } else if (d == 1) {
-            for (Libro libro : coleccion) {
-                if (libro.getTitulo().equalsIgnoreCase(t)) {
-                    if (libro.isPrestado()) {
-                        libro.setPrestado(false);
-
-                        System.out.println("El libro ha sido devuelto con exito.");
-                    } else {
-                        System.out.println("Este libro no está prestado.");
-                    }
-                    return;
-                }
-            }
-            System.out.println("Este libro no se encuentra en la lista.");
-        }
-    } **/
-
-    /**
-    public Libro buscarLibro(ArrayList<Libro> listaLibros, String t) {
-        Libro seleccionado = new Libro("", "", "", false);
-        for (Libro libro : listaLibros) {
-            if (libro.getTitulo().equalsIgnoreCase(t)) {
-                seleccionado = libro;
-            } else {
-                System.out.println("Este libro no se encuentra en la lista");
-            }
-        }
-        return seleccionado;
-    } **/
-
     public void crearYeliminarUsuarios(Usuario nuevoUsuario, int d) {
         if (d == 0) {
             for (Usuario usuario : listaUsuarios) {
-                if (nuevoUsuario.getNombre().equalsIgnoreCase(usuario.getNombre()) || nuevoUsuario.getCodigoCarnet().equalsIgnoreCase(usuario.getCodigoCarnet())) {
+                if (nuevoUsuario.getCodigoCarnet().equalsIgnoreCase(usuario.getCodigoCarnet()) || nuevoUsuario.getDni().equalsIgnoreCase(usuario.getDni())) {
                     System.out.println("Este usuario ya está registrado.");
                     return;
                 }
@@ -132,7 +85,7 @@ public class Biblioteca implements Serializable {
 
         } else if (d == 1) {
             for (Usuario usuario : listaUsuarios) {
-                if (nuevoUsuario.getNombre().equalsIgnoreCase(usuario.getNombre()) || nuevoUsuario.getCodigoCarnet().equalsIgnoreCase(usuario.getCodigoCarnet())) {
+                if (nuevoUsuario.getCodigoCarnet().equalsIgnoreCase(usuario.getCodigoCarnet()) || nuevoUsuario.getDni().equalsIgnoreCase(usuario.getDni())) {
                     listaUsuarios.remove(usuario);
                     System.out.println("El usuario se ha eliminado con éxito.");
                     return;
@@ -142,9 +95,9 @@ public class Biblioteca implements Serializable {
         }
     }
 
-    public Usuario devolverUsuario(String u) {
+    public Usuario devolverUsuario(String cc) {
         for (Usuario usuario : listaUsuarios) {
-            if (u.equalsIgnoreCase(usuario.getNombre())) {
+            if (cc.equalsIgnoreCase(usuario.getCodigoCarnet())) {
                 return usuario;
             }
         }

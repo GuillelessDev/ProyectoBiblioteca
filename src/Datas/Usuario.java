@@ -52,6 +52,14 @@ public class Usuario extends Persona {
         }
     }
 
+    public void mostrarLibrosEnPosesion() {
+        int contador = 1;
+        for (Libro libro : prestados) {
+            System.out.println(contador + ". " + libro);
+            contador++;
+        }
+    }
+
     // Getters y Setters
     public String getCodigoCarnet() {
         return codigoCarnet;

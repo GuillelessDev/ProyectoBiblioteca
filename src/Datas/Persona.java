@@ -1,9 +1,12 @@
 package Datas;
 
-public class Persona {
+import java.io.Serializable;
+
+public class Persona implements Serializable {
     String nombre, apellido, dni;
 
     // Constructor
+
     public Persona(String nombre, String apellido, String dni) {
         this.nombre = nombre;
         this.apellido = apellido;
@@ -17,6 +20,7 @@ public class Persona {
     }
 
     // Getters y Setters
+
     public String getNombre() {
         return nombre;
     }
@@ -31,5 +35,13 @@ public class Persona {
 
     public void setApellido(String apellido) {
         this.apellido = apellido;
+    }
+
+    public String getDni() {
+        return dni;
+    }
+
+    public void setDni(String dni) {
+        this.dni = dni;
     }
 }
